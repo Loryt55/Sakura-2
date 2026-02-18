@@ -36,12 +36,12 @@ public class BookingService {
     public Booking createBooking(Booking booking) {
         // Recupera property completa dal DB
         Property property = repository.findById(booking.getProperty().getId())
-                .orElseThrow(() -> new RuntimeException("Property not found with id " + booking.getProperty().getId()));
+                .orElseThrow(() -> new RuntimeException("Property not found with id " + booking.getProperty().getId())).getProperty();
         booking.setProperty(property);
 
         // Recupera user completo dal DB
         User user = repository.findById(booking.getUser().getId())
-                .orElseThrow(() -> new RuntimeException("User not found with id " + booking.getUser().getId()));
+                .orElseThrow(() -> new RuntimeException("User not found with id " + booking.getUser().getId())).getUser();
         booking.setUser(user);
 
         // Ora calcola totalPrice

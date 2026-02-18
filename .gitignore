@@ -1,17 +1,51 @@
+############################
 # Maven
+############################
 target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
 
-# IntelliJ
+############################
+# IntelliJ IDEA
+############################
 .idea/
 *.iml
+*.ipr
+*.iws
+out/
 
+############################
 # Logs
+############################
 *.log
+logs/
 
-# OS
+############################
+# Spring Boot
+############################
+*.jar
+*.war
+*.ear
+*.zip
+
+############################
+# OS Files
+############################
 .DS_Store
 Thumbs.db
 
-# Environment
+############################
+# Environment / Config
+############################
 .env
 application-local.properties
+application-*.local.properties
+
+############################
+# Test / Coverage
+############################
+/coverage/
