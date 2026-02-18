@@ -8,76 +8,71 @@ import java.math.BigDecimal;
 
 public class PropertyRequest {
 
-    @NotBlank
+    @NotBlank(message = "Name cannot be blank")
     private String name;
-    @NotBlank
+    @NotBlank(message = "Address cannot be blank")
     private String address;
-    @NotBlank
+    @NotBlank(message = "City cannot be blank")
     private String city;
 
-    @NotNull
-    @Positive
+    @NotNull(message = "Rooms is required")
+    @Positive(message = "Rooms must be positive")
     private Integer rooms;
-    @NotNull
-    @Positive
+    @NotNull(message = "Price per month is required")
+    @Positive(message = "Price must be positive")
     private BigDecimal pricePerMonth;
 
-    @NotNull
+    @NotNull(message = "Active status is required")
     private Boolean isActive;
 
-    public PropertyRequest() {}
+    public PropertyRequest() {
+    }
 
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
-    public void setName(String name)
-    {
+
+    public void setName(String name) {
         this.name = name;
     }
 
-    public String getAddress()
-    {
+    public String getAddress() {
         return address;
     }
-    public void setAddress(String address)
-    {
+
+    public void setAddress(String address) {
         this.address = address;
     }
 
-    public String getCity()
-    {
+    public String getCity() {
         return city;
     }
-    public void setCity(String city)
-    {
+
+    public void setCity(String city) {
         this.city = city;
     }
 
-    public Integer getRooms()
-    {
+    public Integer getRooms() {
         return rooms;
     }
-    public void setRooms(Integer rooms)
-    {
+
+    public void setRooms(Integer rooms) {
         this.rooms = rooms;
     }
 
-    public BigDecimal getPricePerMonth()
-    {
+    public BigDecimal getPricePerMonth() {
         return pricePerMonth;
     }
-    public void setPricePerMonth(BigDecimal pricePerMonth)
-    {
+
+    public void setPricePerMonth(BigDecimal pricePerMonth) {
         this.pricePerMonth = pricePerMonth;
     }
 
-    public Boolean getActive()
-    {
+    public Boolean getActive() {
         return isActive;
     }
-    public void setActive(Boolean isActive)
-    {
+
+    public void setActive(Boolean isActive) {
         this.isActive = isActive;
     }
 }

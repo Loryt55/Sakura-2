@@ -24,7 +24,8 @@ public class PropertyMapper {
                 property.getCity(),
                 property.getRooms(),
                 property.getPricePerMonth(),
-                property.getActive()
+                property.getActive(),
+                property.getCreatedAt()
         );
     }
 }

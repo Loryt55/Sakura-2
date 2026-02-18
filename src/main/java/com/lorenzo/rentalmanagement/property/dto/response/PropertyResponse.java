@@ -1,6 +1,7 @@
 package com.lorenzo.rentalmanagement.property.dto.response;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 public class PropertyResponse {
 
@@ -10,16 +11,18 @@ public class PropertyResponse {
     private Integer rooms;
     private BigDecimal pricePerMonth;
     private Boolean active;
+    private LocalDateTime createdAt;
 
     public PropertyResponse() {}
 
-    public PropertyResponse(String name, String address, String city, Integer rooms, BigDecimal pricePerMonth, Boolean active) {
+    public PropertyResponse(String name, String address, String city, Integer rooms, BigDecimal pricePerMonth, Boolean active,  LocalDateTime createdAt) {
         this.name = name;
         this.address = address;
         this.city = city;
         this.rooms = rooms;
         this.pricePerMonth = pricePerMonth;
         this.active = active;
+        this.createdAt = createdAt;
     }
 
     public String getName() {
@@ -68,5 +71,13 @@ public class PropertyResponse {
 
     public void setActive(Boolean active) {
         this.active = active;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 }
