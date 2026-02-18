@@ -1,2 +1,2 @@
-Voglio creare un applicazione per gestione affitti non turistici dal backend al frontend, utilizzero java spring mvc microservizzi intellij postman dbeaver postgresql docker, voglio usare le best practis.
+Voglio creare un applicazione per gestione affitti non turistici dal backend al frontend, utilizzero java 21, spring mvc microservizzi intellij postman dbeaver postgresql docker, maven, utilizzo docker e ho messo tutto su git hub, voglio usare le best practis.
 Supportami nella creazione e nell'apprendimento in quanto sto usando la creazione di questo progetto per apprendere

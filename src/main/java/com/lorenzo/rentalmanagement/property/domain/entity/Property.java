@@ -1,9 +1,11 @@
-package com.lorenzo.rentalmanagement.property.model;
+package com.lorenzo.rentalmanagement.property.domain.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+
+import java.math.BigDecimal;
 
 @Entity
 public class Property {
@@ -14,21 +16,21 @@ public class Property {
 
     private String name;
     private String address;
-    private Double pricePerMonth;
     private String city;
     private Integer rooms;
+    private BigDecimal pricePerMonth;
     private Boolean active;
 
 
     public Property() {
     }
 
-    public Property(String name, String address, Double pricePerMonth, String city, Integer rooms, Boolean active) {
+    public Property(String name, String address,  String city,Integer rooms, BigDecimal pricePerMonth, Boolean active) {
         this.name = name;
         this.address = address;
-        this.pricePerMonth = pricePerMonth;
         this.city = city;
         this.rooms = rooms;
+        this.pricePerMonth = pricePerMonth;
         this.active = active;
     }
 
@@ -44,16 +46,16 @@ public class Property {
         return address;
     }
 
-    public Double getPricePerMonth() {
-        return pricePerMonth;
-    }
-
     public String getCity() {
         return city;
     }
 
     public Integer getRooms() {
         return rooms;
+    }
+
+    public BigDecimal getPricePerMonth() {
+        return pricePerMonth;
     }
 
     public Boolean getActive() {
@@ -68,16 +70,16 @@ public class Property {
         this.address = address;
     }
 
-    public void setPricePerMonth(Double pricePerMonth) {
-        this.pricePerMonth = pricePerMonth;
-    }
-
     public void setCity(String city) {
         this.city = city;
     }
 
     public void setRooms(Integer rooms) {
         this.rooms = rooms;
+    }
+
+    public void setPricePerMonth(BigDecimal pricePerMonth) {
+        this.pricePerMonth = pricePerMonth;
     }
 
     public void setActive(Boolean active) {

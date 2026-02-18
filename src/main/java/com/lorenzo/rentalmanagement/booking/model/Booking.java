@@ -1,7 +1,7 @@
 package com.lorenzo.rentalmanagement.booking.model;
 
 import com.lorenzo.rentalmanagement.user.model.User;
-import com.lorenzo.rentalmanagement.property.model.Property;
+import com.lorenzo.rentalmanagement.property.domain.entity.Property;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 

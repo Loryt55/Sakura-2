@@ -2,7 +2,7 @@ package com.lorenzo.rentalmanagement.booking.service;
 
 import com.lorenzo.rentalmanagement.booking.model.Booking;
 import com.lorenzo.rentalmanagement.booking.repository.BookingRepository;
-import com.lorenzo.rentalmanagement.property.model.Property;
+import com.lorenzo.rentalmanagement.property.domain.entity.Property;
 import com.lorenzo.rentalmanagement.user.model.User;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
@@ -44,8 +44,7 @@ public class BookingService {
                 .orElseThrow(() -> new RuntimeException("User not found with id " + booking.getUser().getId())).getUser();
         booking.setUser(user);
 
-        // Ora calcola totalPrice
-        calculateTotalPrice(booking);
+
 
         return repository.save(booking);
     }
@@ -58,7 +57,6 @@ public class BookingService {
             existing.setStartDate(updatedBooking.getStartDate());
             existing.setEndDate(updatedBooking.getEndDate());
             existing.setActive(updatedBooking.getActive());
-            calculateTotalPrice(existing);
             return repository.save(existing);
         });
     }
@@ -68,19 +66,5 @@ public class BookingService {
     }
 
     // METODO PRIVATO: calcola totalPrice basato sui mesi
-    private void calculateTotalPrice(Booking booking) {
-        //todo bug per cui non collega una property
-        if (booking.getProperty() != null &&
-                booking.getStartDate() != null &&
-                booking.getEndDate() != null) {
 
-
-            long months = ChronoUnit.MONTHS.between(
-                    booking.getStartDate().withDayOfMonth(1),
-                    booking.getEndDate().withDayOfMonth(1)
-            ) + 1; // +1 per includere il mese iniziale
-
-            booking.setTotalPrice(booking.getProperty().getPricePerMonth() * months);
-        }
-    }
 }

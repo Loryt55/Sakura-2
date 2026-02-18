@@ -1,6 +1,8 @@
 package com.lorenzo.rentalmanagement.property.controller;
 
-import com.lorenzo.rentalmanagement.property.model.Property;
+import com.lorenzo.rentalmanagement.property.domain.entity.Property;
+import com.lorenzo.rentalmanagement.property.dto.request.PropertyRequest;
+import com.lorenzo.rentalmanagement.property.dto.response.PropertyResponse;
 import com.lorenzo.rentalmanagement.property.service.PropertyService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,39 +14,39 @@ import java.util.List;
 @RequestMapping("/api/properties")
 public class PropertyController {
 
-    private final PropertyService service;
+    private PropertyService propertyService;
 
-    public PropertyController(PropertyService service) {
-        this.service = service;
+    public PropertyController(PropertyService propertyService) {
+        this.propertyService = propertyService;
     }
 
     @PostMapping
-    public ResponseEntity<Property> createProperty(@RequestBody Property property) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.createProperty(property));
+    public ResponseEntity<PropertyResponse> create(@RequestBody PropertyRequest propertyRequest) {
+        PropertyResponse propertyRespons = propertyService.create(propertyRequest);
+        return ResponseEntity.status(HttpStatus.CREATED).body(propertyRespons);
     }
 
     @GetMapping
-    public ResponseEntity<List<Property>> getAllProperties() {
-        return ResponseEntity.ok(service.getAllProperties());
+    public ResponseEntity<List<PropertyResponse>> getAll() {
+        return ResponseEntity.ok(propertyService.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Property> getPropertyById(@PathVariable Long id) {
-        return service.getPropertyById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<PropertyResponse> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(propertyService.findById(id));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Property> updateProperty(@PathVariable Long id, @RequestBody Property property) {
-        return service.updateProperty(id, property)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<PropertyResponse> update(
+            @PathVariable Long id,
+            @RequestBody PropertyRequest propertyRequest) {
+
+        return ResponseEntity.ok(propertyService.update(id, propertyRequest));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteProperty(@PathVariable Long id) {
-        service.deleteProperty(id);
+    public ResponseEntity<PropertyResponse> delete(@PathVariable Long id) {
+        propertyService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 }
