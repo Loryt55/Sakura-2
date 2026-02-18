@@ -6,6 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Entity
 public class Property {
@@ -20,12 +21,14 @@ public class Property {
     private Integer rooms;
     private BigDecimal pricePerMonth;
     private Boolean active;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
 
     public Property() {
     }
 
-    public Property(String name, String address,  String city,Integer rooms, BigDecimal pricePerMonth, Boolean active) {
+    public Property(String name, String address, String city, Integer rooms, BigDecimal pricePerMonth, Boolean active) {
         this.name = name;
         this.address = address;
         this.city = city;
@@ -86,4 +89,19 @@ public class Property {
         this.active = active;
     }
 
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 }

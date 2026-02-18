@@ -4,6 +4,7 @@ import com.lorenzo.rentalmanagement.property.domain.entity.Property;
 import com.lorenzo.rentalmanagement.property.dto.request.PropertyRequest;
 import com.lorenzo.rentalmanagement.property.dto.response.PropertyResponse;
 import com.lorenzo.rentalmanagement.property.service.PropertyService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +22,7 @@ public class PropertyController {
     }
 
     @PostMapping
-    public ResponseEntity<PropertyResponse> create(@RequestBody PropertyRequest propertyRequest) {
+    public ResponseEntity<PropertyResponse> create(@Valid @RequestBody PropertyRequest propertyRequest) {
         PropertyResponse propertyRespons = propertyService.create(propertyRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(propertyRespons);
     }
@@ -39,7 +40,7 @@ public class PropertyController {
     @PutMapping("/{id}")
     public ResponseEntity<PropertyResponse> update(
             @PathVariable Long id,
-            @RequestBody PropertyRequest propertyRequest) {
+            @Valid @RequestBody PropertyRequest propertyRequest) {
 
         return ResponseEntity.ok(propertyService.update(id, propertyRequest));
     }
