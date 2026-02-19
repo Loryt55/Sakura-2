@@ -1,6 +1,5 @@
 package com.lorenzo.rentalmanagement.property.controller;
 
-import com.lorenzo.rentalmanagement.property.domain.entity.Property;
 import com.lorenzo.rentalmanagement.property.dto.request.PropertyRequest;
 import com.lorenzo.rentalmanagement.property.dto.response.PropertyResponse;
 import com.lorenzo.rentalmanagement.property.service.PropertyService;
