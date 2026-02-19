@@ -5,6 +5,9 @@ import com.lorenzo.rentalmanagement.property.dto.request.PropertyRequest;
 import com.lorenzo.rentalmanagement.property.dto.response.PropertyResponse;
 
 public class PropertyMapper {
+    private PropertyMapper() {
+    }
+
 
     public static Property toEntity(PropertyRequest request) {
         return new Property(
