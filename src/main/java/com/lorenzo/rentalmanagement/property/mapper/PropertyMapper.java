@@ -29,7 +29,8 @@ public class PropertyMapper {
                 property.getRooms(),
                 property.getPricePerMonth(),
                 property.getActive(),
-                property.getCreatedAt()
+                property.getCreatedAt(),
+                property.getUpdatedAt()
         );
     }
 }

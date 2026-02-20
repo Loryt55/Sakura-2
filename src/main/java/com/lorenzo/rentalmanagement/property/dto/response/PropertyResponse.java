@@ -13,11 +13,12 @@ public class PropertyResponse {
     private BigDecimal pricePerMonth;
     private Boolean active;
     private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
     public PropertyResponse() {
     }
 
-    public PropertyResponse(Long id, String name, String address, String city, Integer rooms, BigDecimal pricePerMonth, Boolean active, LocalDateTime createdAt) {
+    public PropertyResponse(Long id, String name, String address, String city, Integer rooms, BigDecimal pricePerMonth, Boolean active, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -26,6 +27,7 @@ public class PropertyResponse {
         this.pricePerMonth = pricePerMonth;
         this.active = active;
         this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
     public Long getId() {
@@ -90,5 +92,13 @@ public class PropertyResponse {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }
