@@ -22,6 +22,7 @@ public class UserMapper {
 
     public static UserResponse toResponseDTO(User user) {
         return new UserResponse.Builder()
+                .id(user.getId())
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
                 .phoneNumber(user.getPhoneNumber())
