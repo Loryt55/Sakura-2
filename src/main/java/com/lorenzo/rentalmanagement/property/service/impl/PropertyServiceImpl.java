@@ -1,5 +1,6 @@
 package com.lorenzo.rentalmanagement.property.service.impl;
 
+import com.lorenzo.rentalmanagement.common.exception.ErrorMessages;
 import com.lorenzo.rentalmanagement.property.domain.entity.Property;
 import com.lorenzo.rentalmanagement.property.dto.request.PropertyRequest;
 import com.lorenzo.rentalmanagement.property.dto.response.PropertyResponse;
@@ -40,15 +41,12 @@ public class PropertyServiceImpl implements PropertyService {
 
     @Override
     public PropertyResponse findById(Long id) {
-        Property property = propertyRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Property with id " + id + " not found"));
-        return PropertyMapper.toResponseDTO(property);
+        return PropertyMapper.toResponseDTO(findPropertyOrThrow(id));
     }
 
     @Override
     public PropertyResponse update(Long id, PropertyRequest propertyRequest) {
-        Property propertyExisting = propertyRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Property with id " + id + " not found"));
+        Property propertyExisting = findPropertyOrThrow(id);
 
         propertyExisting.setName(propertyRequest.getName());
         propertyExisting.setAddress(propertyRequest.getAddress());
@@ -69,5 +67,12 @@ public class PropertyServiceImpl implements PropertyService {
 
         property.setActive(false);
         propertyRepository.save(property);
+    }
+
+    private Property findPropertyOrThrow(Long id) {
+        return propertyRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        String.format(ErrorMessages.PROPERTY_NOT_FOUND, id)
+                ));
     }
 }
