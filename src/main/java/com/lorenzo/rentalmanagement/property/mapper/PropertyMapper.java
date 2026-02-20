@@ -20,16 +20,15 @@ public class PropertyMapper {
     }
 
     public static PropertyResponse toResponseDTO(Property property) {
-        return new PropertyResponse(
-                property.getId(),
-                property.getName(),
-                property.getAddress(),
-                property.getCity(),
-                property.getRooms(),
-                property.getPricePerMonth(),
-                property.getActive(),
-                property.getCreatedAt(),
-                property.getUpdatedAt()
-        );
+        return new PropertyResponse.Builder()
+                .id(property.getId())
+                .name(property.getName())
+                .address(property.getAddress())
+                .city(property.getCity())
+                .rooms(property.getRooms())
+                .pricePerMonth(property.getPricePerMonth())
+                .createdAt(property.getCreatedAt())
+                .updatedAt(property.getUpdatedAt())
+                .build();
     }
 }

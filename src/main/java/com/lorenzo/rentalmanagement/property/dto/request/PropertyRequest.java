@@ -23,6 +23,7 @@ public class PropertyRequest {
     private BigDecimal pricePerMonth;
 
     public PropertyRequest() {
+        // Required by frameworks like Jackson/Spring for deserialization
     }
 
     public String getName() {
