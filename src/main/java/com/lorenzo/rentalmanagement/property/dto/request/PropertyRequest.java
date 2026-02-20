@@ -22,9 +22,6 @@ public class PropertyRequest {
     @Positive(message = "Price must be positive")
     private BigDecimal pricePerMonth;
 
-    @NotNull(message = "Active status is required")
-    private Boolean isActive;
-
     public PropertyRequest() {
     }
 
@@ -66,13 +63,5 @@ public class PropertyRequest {
 
     public void setPricePerMonth(BigDecimal pricePerMonth) {
         this.pricePerMonth = pricePerMonth;
-    }
-
-    public Boolean getActive() {
-        return isActive;
-    }
-
-    public void setActive(Boolean isActive) {
-        this.isActive = isActive;
     }
 }

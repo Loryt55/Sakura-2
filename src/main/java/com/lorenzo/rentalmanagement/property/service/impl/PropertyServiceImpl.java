@@ -24,6 +24,7 @@ public class PropertyServiceImpl implements PropertyService {
     @Override
     public PropertyResponse create(PropertyRequest propertyRequest) {
         Property property = PropertyMapper.toEntity(propertyRequest);
+        property.setActive(true);
         property.setCreatedAt(LocalDateTime.now());
         Property savedProperty = propertyRepository.save(property);
         return PropertyMapper.toResponseDTO(savedProperty);
@@ -54,8 +55,6 @@ public class PropertyServiceImpl implements PropertyService {
         propertyExisting.setCity(propertyRequest.getCity());
         propertyExisting.setRooms(propertyRequest.getRooms());
         propertyExisting.setPricePerMonth(propertyRequest.getPricePerMonth());
-        propertyExisting.setActive(propertyRequest.getActive());
-
         propertyExisting.setUpdatedAt(LocalDateTime.now());
 
         Property updatedProperty = propertyRepository.save(propertyExisting);

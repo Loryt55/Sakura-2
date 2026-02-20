@@ -28,13 +28,12 @@ public class Property {
     public Property() {
     }
 
-    public Property(String name, String address, String city, Integer rooms, BigDecimal pricePerMonth, Boolean active) {
+    public Property(String name, String address, String city, Integer rooms, BigDecimal pricePerMonth) {
         this.name = name;
         this.address = address;
         this.city = city;
         this.rooms = rooms;
         this.pricePerMonth = pricePerMonth;
-        this.active = active;
     }
 
     public Long getId() {
