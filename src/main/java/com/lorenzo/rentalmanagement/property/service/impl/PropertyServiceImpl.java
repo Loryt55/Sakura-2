@@ -46,7 +46,7 @@ public class PropertyServiceImpl implements PropertyService {
     }
 
     @Override
-    public PropertyResponse update(Long id, PropertyRequest propertyRequest){
+    public PropertyResponse update(Long id, PropertyRequest propertyRequest) {
         Property propertyExisting = propertyRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Property with id " + id + " not found"));
 
@@ -59,11 +59,15 @@ public class PropertyServiceImpl implements PropertyService {
 
         Property updatedProperty = propertyRepository.save(propertyExisting);
 
-        return  PropertyMapper.toResponseDTO(updatedProperty);
+        return PropertyMapper.toResponseDTO(updatedProperty);
     }
 
     @Override
     public void deleteById(Long id) {
-        propertyRepository.deleteById(id);
+        Property property = propertyRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Property with id " + id + " not found"));
+
+        property.setActive(false);
+        propertyRepository.save(property);
     }
 }
