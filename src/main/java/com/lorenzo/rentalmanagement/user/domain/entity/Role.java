@@ -1,4 +1,4 @@
-package com.lorenzo.rentalmanagement.user.model;
+package com.lorenzo.rentalmanagement.user.domain.entity;
 
 import jakarta.persistence.*;
 

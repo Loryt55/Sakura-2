@@ -2,7 +2,7 @@
 
 package com.lorenzo.rentalmanagement.user.controller;
 
-import com.lorenzo.rentalmanagement.user.model.User;
+import com.lorenzo.rentalmanagement.user.domain.entity.User;
 import com.lorenzo.rentalmanagement.user.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

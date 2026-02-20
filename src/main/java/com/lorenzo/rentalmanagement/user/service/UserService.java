@@ -1,6 +1,6 @@
 package com.lorenzo.rentalmanagement.user.service;
 
-import com.lorenzo.rentalmanagement.user.model.User;
+import com.lorenzo.rentalmanagement.user.domain.entity.User;
 import com.lorenzo.rentalmanagement.user.repository.UserRepository;
 import org.springframework.stereotype.Service;
 

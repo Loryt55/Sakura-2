@@ -1,6 +1,6 @@
 package com.lorenzo.rentalmanagement.user.repository;
 
-import com.lorenzo.rentalmanagement.user.model.Role;
+import com.lorenzo.rentalmanagement.user.domain.entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

@@ -3,20 +3,15 @@ package com.lorenzo.rentalmanagement.booking.service;
 import com.lorenzo.rentalmanagement.booking.model.Booking;
 import com.lorenzo.rentalmanagement.booking.repository.BookingRepository;
 import com.lorenzo.rentalmanagement.property.domain.entity.Property;
-import com.lorenzo.rentalmanagement.user.model.User;
+import com.lorenzo.rentalmanagement.user.domain.entity.User;
 import jakarta.transaction.Transactional;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class BookingService {
-
-    private static final Logger log = LoggerFactory.getLogger(BookingService.class);
 
     private final BookingRepository repository;
 
@@ -43,7 +38,6 @@ public class BookingService {
         User user = repository.findById(booking.getUser().getId())
                 .orElseThrow(() -> new RuntimeException("User not found with id " + booking.getUser().getId())).getUser();
         booking.setUser(user);
-
 
 
         return repository.save(booking);
