@@ -22,6 +22,7 @@ public class PropertyMapper {
 
     public static PropertyResponse toResponseDTO(Property property) {
         return new PropertyResponse(
+                property.getId(),
                 property.getName(),
                 property.getAddress(),
                 property.getCity(),

@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 
 public class PropertyResponse {
 
+    private Long id;
     private String name;
     private String address;
     private String city;
@@ -13,9 +14,11 @@ public class PropertyResponse {
     private Boolean active;
     private LocalDateTime createdAt;
 
-    public PropertyResponse() {}
+    public PropertyResponse() {
+    }
 
-    public PropertyResponse(String name, String address, String city, Integer rooms, BigDecimal pricePerMonth, Boolean active,  LocalDateTime createdAt) {
+    public PropertyResponse(Long id, String name, String address, String city, Integer rooms, BigDecimal pricePerMonth, Boolean active, LocalDateTime createdAt) {
+        this.id = id;
         this.name = name;
         this.address = address;
         this.city = city;
@@ -23,6 +26,14 @@ public class PropertyResponse {
         this.pricePerMonth = pricePerMonth;
         this.active = active;
         this.createdAt = createdAt;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
