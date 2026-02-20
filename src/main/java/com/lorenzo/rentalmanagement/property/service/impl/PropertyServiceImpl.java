@@ -32,7 +32,7 @@ public class PropertyServiceImpl implements PropertyService {
 
     @Override
     public List<PropertyResponse> findAll() {
-        return propertyRepository.findAll()
+        return propertyRepository.findAllByActiveTrue()
                 .stream()
                 .map(PropertyMapper::toResponseDTO)
                 .toList();
