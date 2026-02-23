@@ -1,5 +1,6 @@
 package com.lorenzo.rentalmanagement.user.domain.entity;
 
+import com.lorenzo.rentalmanagement.role.domain.entity.Role;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;

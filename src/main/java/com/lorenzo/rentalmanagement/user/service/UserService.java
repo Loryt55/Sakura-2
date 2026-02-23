@@ -1,4 +1,4 @@
-package com.lorenzo.rentalmanagement.user.service.impl;
+package com.lorenzo.rentalmanagement.user.service;
 
 import com.lorenzo.rentalmanagement.user.dto.request.UserRequest;
 import com.lorenzo.rentalmanagement.user.dto.request.UserUpdateRequest;

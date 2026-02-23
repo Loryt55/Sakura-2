@@ -1,15 +1,15 @@
-package com.lorenzo.rentalmanagement.user.service;
+package com.lorenzo.rentalmanagement.user.service.impl;
 
 import com.lorenzo.rentalmanagement.property.exception.ResourceNotFoundException;
-import com.lorenzo.rentalmanagement.user.domain.entity.Role;
+import com.lorenzo.rentalmanagement.role.domain.entity.Role;
 import com.lorenzo.rentalmanagement.user.domain.entity.User;
 import com.lorenzo.rentalmanagement.user.dto.request.UserRequest;
 import com.lorenzo.rentalmanagement.user.dto.request.UserUpdateRequest;
 import com.lorenzo.rentalmanagement.user.dto.response.UserResponse;
 import com.lorenzo.rentalmanagement.user.mapper.UserMapper;
-import com.lorenzo.rentalmanagement.user.repository.RoleRepository;
+import com.lorenzo.rentalmanagement.role.repository.RoleRepository;
 import com.lorenzo.rentalmanagement.user.repository.UserRepository;
-import com.lorenzo.rentalmanagement.user.service.impl.UserService;
+import com.lorenzo.rentalmanagement.user.service.UserService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;

@@ -1,6 +1,6 @@
 package com.lorenzo.rentalmanagement.user.mapper;
 
-import com.lorenzo.rentalmanagement.user.domain.entity.Role;
+import com.lorenzo.rentalmanagement.role.domain.entity.Role;
 import com.lorenzo.rentalmanagement.user.domain.entity.User;
 import com.lorenzo.rentalmanagement.user.dto.request.UserRequest;
 import com.lorenzo.rentalmanagement.user.dto.response.UserResponse;
