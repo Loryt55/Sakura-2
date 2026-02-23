@@ -1,7 +1,7 @@
 package com.lorenzo.rentalmanagement.property.dto.response;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class PropertyResponse {
 
@@ -11,10 +11,11 @@ public class PropertyResponse {
     private String city;
     private Integer rooms;
     private BigDecimal pricePerMonth;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private LocalDate createdAt;
+    private LocalDate updatedAt;
 
-    private PropertyResponse() {}
+    private PropertyResponse() {
+    }
 
     public static class Builder {
         private Long id;
@@ -23,17 +24,48 @@ public class PropertyResponse {
         private String city;
         private Integer rooms;
         private BigDecimal pricePerMonth;
-        private LocalDateTime createdAt;
-        private LocalDateTime updatedAt;
+        private LocalDate createdAt;
+        private LocalDate updatedAt;
 
-        public Builder id(Long id) { this.id = id; return this; }
-        public Builder name(String name) { this.name = name; return this; }
-        public Builder address(String address) { this.address = address; return this; }
-        public Builder city(String city) { this.city = city; return this; }
-        public Builder rooms(Integer rooms) { this.rooms = rooms; return this; }
-        public Builder pricePerMonth(BigDecimal pricePerMonth) { this.pricePerMonth = pricePerMonth; return this; }
-        public Builder createdAt(LocalDateTime createdAt) { this.createdAt = createdAt; return this; }
-        public Builder updatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; return this; }
+        public Builder id(Long id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder address(String address) {
+            this.address = address;
+            return this;
+        }
+
+        public Builder city(String city) {
+            this.city = city;
+            return this;
+        }
+
+        public Builder rooms(Integer rooms) {
+            this.rooms = rooms;
+            return this;
+        }
+
+        public Builder pricePerMonth(BigDecimal pricePerMonth) {
+            this.pricePerMonth = pricePerMonth;
+            return this;
+        }
+
+        public Builder createdAt(LocalDate createdAt) {
+            this.createdAt = createdAt;
+            return this;
+        }
+
+        public Builder updatedAt(LocalDate updatedAt) {
+            this.updatedAt = updatedAt;
+            return this;
+        }
 
         public PropertyResponse build() {
             PropertyResponse response = new PropertyResponse();
@@ -97,19 +129,19 @@ public class PropertyResponse {
         this.pricePerMonth = pricePerMonth;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public LocalDate getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
     }
 
-    public LocalDateTime getUpdatedAt() {
+    public LocalDate getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(LocalDateTime updatedAt) {
+    public void setUpdatedAt(LocalDate updatedAt) {
         this.updatedAt = updatedAt;
     }
 }

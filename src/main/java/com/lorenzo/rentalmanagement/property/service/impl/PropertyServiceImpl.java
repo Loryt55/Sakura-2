@@ -10,7 +10,7 @@ import com.lorenzo.rentalmanagement.property.repository.PropertyRepository;
 import com.lorenzo.rentalmanagement.property.service.PropertyService;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -26,7 +26,7 @@ public class PropertyServiceImpl implements PropertyService {
     public PropertyResponse create(PropertyRequest propertyRequest) {
         Property property = PropertyMapper.toEntity(propertyRequest);
         property.setActive(true);
-        property.setCreatedAt(LocalDateTime.now());
+        property.setCreatedAt(LocalDate.now());
         Property savedProperty = propertyRepository.save(property);
         return PropertyMapper.toResponseDTO(savedProperty);
     }
@@ -53,7 +53,7 @@ public class PropertyServiceImpl implements PropertyService {
         propertyExisting.setCity(propertyRequest.getCity());
         propertyExisting.setRooms(propertyRequest.getRooms());
         propertyExisting.setPricePerMonth(propertyRequest.getPricePerMonth());
-        propertyExisting.setUpdatedAt(LocalDateTime.now());
+        propertyExisting.setUpdatedAt(LocalDate.now());
 
         Property updatedProperty = propertyRepository.save(propertyExisting);
 
