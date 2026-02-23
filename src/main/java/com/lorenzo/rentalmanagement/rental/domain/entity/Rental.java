@@ -1,4 +1,4 @@
-package com.lorenzo.rentalmanagement.rental.model;
+package com.lorenzo.rentalmanagement.rental.domain.entity;
 
 import com.lorenzo.rentalmanagement.user.domain.entity.User;
 import com.lorenzo.rentalmanagement.property.domain.entity.Property;

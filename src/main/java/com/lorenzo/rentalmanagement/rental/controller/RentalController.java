@@ -1,7 +1,7 @@
 package com.lorenzo.rentalmanagement.rental.controller;
 
-import com.lorenzo.rentalmanagement.rental.model.Rental;
-import com.lorenzo.rentalmanagement.rental.service.RentalService;
+import com.lorenzo.rentalmanagement.rental.domain.entity.Rental;
+import com.lorenzo.rentalmanagement.rental.service.impl.RentalServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,9 +12,9 @@ import java.util.List;
 @RequestMapping("/api/bookings")
 public class RentalController {
 
-    private final RentalService service;
+    private final RentalServiceImpl service;
 
-    public RentalController(RentalService service) {
+    public RentalController(RentalServiceImpl service) {
         this.service = service;
     }
 
