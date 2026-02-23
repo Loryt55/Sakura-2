@@ -3,6 +3,8 @@ package com.lorenzo.rentalmanagement.rental.domain.entity;
 import com.lorenzo.rentalmanagement.user.domain.entity.User;
 import com.lorenzo.rentalmanagement.property.domain.entity.Property;
 import jakarta.persistence.*;
+
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
     @Entity
@@ -16,19 +18,19 @@ import java.time.LocalDate;
         @JoinColumn(name = "property_id", nullable = false)
         private Property property;
         @ManyToOne
-        @JoinColumn(name = "user_id", nullable = false)
-        private User user;
+        @JoinColumn(name = "tenant_id", nullable = false)
+        private User Tenant;
         private LocalDate startDate;
         private LocalDate endDate;
-        private Double totalPrice;
+        private BigDecimal totalPrice;
         private Boolean active;
 
         public Rental() {
         }
 
-        public Rental(Property property, User user, LocalDate startDate, LocalDate endDate, Double totalPrice, Boolean active) {
+        public Rental(Property property, User Tenant, LocalDate startDate, LocalDate endDate, BigDecimal totalPrice, Boolean active) {
             this.property = property;
-            this.user = user;
+            this.Tenant = Tenant;
             this.startDate = startDate;
             this.endDate = endDate;
             this.totalPrice = totalPrice;
@@ -47,12 +49,12 @@ import java.time.LocalDate;
             this.property = property;
         }
 
-        public User getUser() {
-            return user;
+        public User getTenant() {
+            return Tenant;
         }
 
-        public void setUser(User user) {
-            this.user = user;
+        public void setTenant(User tenant) {
+            this.Tenant = tenant;
         }
 
         public LocalDate getStartDate() {
@@ -71,11 +73,11 @@ import java.time.LocalDate;
             this.endDate = endDate;
         }
 
-        public Double getTotalPrice() {
+        public BigDecimal getTotalPrice() {
             return totalPrice;
         }
 
-        public void setTotalPrice(Double totalPrice) {
+        public void setTotalPrice(BigDecimal totalPrice) {
             this.totalPrice = totalPrice;
         }
 

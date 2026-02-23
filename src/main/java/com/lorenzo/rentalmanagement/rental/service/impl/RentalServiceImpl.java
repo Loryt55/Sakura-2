@@ -1,65 +1,126 @@
 package com.lorenzo.rentalmanagement.rental.service.impl;
 
-import com.lorenzo.rentalmanagement.rental.domain.entity.Rental;
-import com.lorenzo.rentalmanagement.rental.repository.RentalRepository;
 import com.lorenzo.rentalmanagement.property.domain.entity.Property;
+import com.lorenzo.rentalmanagement.property.repository.PropertyRepository;
+import com.lorenzo.rentalmanagement.rental.domain.entity.Rental;
+import com.lorenzo.rentalmanagement.rental.dto.request.RentalRequest;
+import com.lorenzo.rentalmanagement.rental.dto.response.RentalResponse;
+import com.lorenzo.rentalmanagement.rental.mapper.RentalMapper;
+import com.lorenzo.rentalmanagement.rental.repository.RentalRepository;
 import com.lorenzo.rentalmanagement.rental.service.RentalService;
+import com.lorenzo.rentalmanagement.property.exception.ResourceNotFoundException;
 import com.lorenzo.rentalmanagement.user.domain.entity.User;
-import jakarta.transaction.Transactional;
+import com.lorenzo.rentalmanagement.user.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class RentalServiceImpl implements RentalService {
 
-    private final RentalRepository repository;
+    private final RentalRepository rentalRepository;
+    private final PropertyRepository propertyRepository;
+    private final UserRepository userRepository;
 
-    public RentalServiceImpl(RentalRepository repository) {
-        this.repository = repository;
+    public RentalServiceImpl(RentalRepository rentalRepository,
+                             PropertyRepository propertyRepository,
+                             UserRepository userRepository) {
+        this.rentalRepository = rentalRepository;
+        this.propertyRepository = propertyRepository;
+        this.userRepository = userRepository;
     }
 
-    public List<Rental> getAllBookings() {
-        return repository.findAll();
+    @Override
+    public RentalResponse create(RentalRequest request) {
+        Property property = propertyRepository.findById(request.getPropertyId())
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        String.format("Property with id %d not found", request.getPropertyId())));
+
+        User user = userRepository.findById(request.getUserId())
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        String.format("User with id %d not found", request.getUserId())));
+
+        BigDecimal totalPrice = calculateTotalPrice(
+                request.getStartDate(),
+                request.getEndDate(),
+                property.getPricePerMonth()
+        );
+
+        Rental rental = new Rental(
+                property,
+                user,
+                request.getStartDate(),
+                request.getEndDate(),
+                totalPrice,
+                true
+        );
+
+        return RentalMapper.toResponseDTO(rentalRepository.save(rental));
     }
 
-    public Optional<Rental> getBookingById(Long id) {
-        return repository.findById(id);
+    @Override
+    public List<RentalResponse> findAll() {
+        return rentalRepository.findAll()
+                .stream()
+                .map(RentalMapper::toResponseDTO)
+                .toList();
     }
 
-    @Transactional
-    public Rental createBooking(Rental rental) {
-        // Recupera property completa dal DB
-        Property property = repository.findById(rental.getProperty().getId())
-                .orElseThrow(() -> new RuntimeException("Property not found with id " + rental.getProperty().getId())).getProperty();
+    @Override
+    public RentalResponse findById(Long id) {
+        return RentalMapper.toResponseDTO(findRentalOrThrow(id));
+    }
+
+    @Override
+    public RentalResponse update(Long id, RentalRequest request) {
+        Rental rental = findRentalOrThrow(id);
+
+        Property property = propertyRepository.findById(request.getPropertyId())
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        String.format("Property with id %d not found", request.getPropertyId())));
+
+        User user = userRepository.findById(request.getUserId())
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        String.format("User with id %d not found", request.getUserId())));
+
+        BigDecimal totalPrice = calculateTotalPrice(
+                request.getStartDate(),
+                request.getEndDate(),
+                property.getPricePerMonth()
+        );
+
         rental.setProperty(property);
+        rental.setTenant(user);
+        rental.setStartDate(request.getStartDate());
+        rental.setEndDate(request.getEndDate());
+        rental.setTotalPrice(totalPrice);
 
-        // Recupera user completo dal DB
-        User user = repository.findById(rental.getUser().getId())
-                .orElseThrow(() -> new RuntimeException("User not found with id " + rental.getUser().getId())).getUser();
-        rental.setUser(user);
-
-
-        return repository.save(rental);
+        return RentalMapper.toResponseDTO(rentalRepository.save(rental));
     }
 
-
-    public Optional<Rental> updateBooking(Long id, Rental updatedRental) {
-        return repository.findById(id).map(existing -> {
-            existing.setProperty(updatedRental.getProperty());
-            existing.setUser(updatedRental.getUser());
-            existing.setStartDate(updatedRental.getStartDate());
-            existing.setEndDate(updatedRental.getEndDate());
-            existing.setActive(updatedRental.getActive());
-            return repository.save(existing);
-        });
+    @Override
+    public void deleteById(Long id) {
+        Rental rental = findRentalOrThrow(id);
+        rental.setActive(false);
+        rentalRepository.save(rental);
     }
 
-    public void deleteBooking(Long id) {
-        repository.deleteById(id);
+    // --- metodi privati ---
+
+    private Rental findRentalOrThrow(Long id) {
+        return rentalRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        String.format("Rental with id %d not found", id)));
     }
 
-    // METODO PRIVATO: calcola totalPrice basato sui mesi
+    private BigDecimal calculateTotalPrice(
+            java.time.LocalDate startDate,
+            java.time.LocalDate endDate,
+            BigDecimal pricePerMonth) {
 
+        long months = ChronoUnit.MONTHS.between(startDate, endDate);
+        return pricePerMonth.multiply(BigDecimal.valueOf(months));
+    }
 }

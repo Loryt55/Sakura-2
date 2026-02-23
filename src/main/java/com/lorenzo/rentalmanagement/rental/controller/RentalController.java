@@ -1,7 +1,10 @@
 package com.lorenzo.rentalmanagement.rental.controller;
 
-import com.lorenzo.rentalmanagement.rental.domain.entity.Rental;
+import com.lorenzo.rentalmanagement.rental.dto.request.RentalRequest;
+import com.lorenzo.rentalmanagement.rental.dto.response.RentalResponse;
+import com.lorenzo.rentalmanagement.rental.service.RentalService;
 import com.lorenzo.rentalmanagement.rental.service.impl.RentalServiceImpl;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,44 +12,40 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/bookings")
+@RequestMapping("/api/rentals")
 public class RentalController {
 
-    private final RentalServiceImpl service;
+    private final RentalService rentalService;
 
-    public RentalController(RentalServiceImpl service) {
-        this.service = service;
+    public RentalController(RentalServiceImpl rentalService) {
+        this.rentalService = rentalService;
     }
 
     @PostMapping
-    public ResponseEntity<Rental> createBooking(@RequestBody Rental rental) {
-        Rental saved = service.createBooking(rental);
-        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
+    public ResponseEntity<RentalResponse> create(@Valid @RequestBody RentalRequest request) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(rentalService.create(request));
     }
 
     @GetMapping
-    public ResponseEntity<List<Rental>> getAllBookings() {
-        return ResponseEntity.ok(service.getAllBookings());
+    public ResponseEntity<List<RentalResponse>> getAll() {
+        return ResponseEntity.ok(rentalService.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Rental> getBookingById(@PathVariable Long id) {
-        return service.getBookingById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<RentalResponse> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(rentalService.findById(id));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Rental> updateBooking(@PathVariable Long id, @RequestBody Rental rental) {
-        return service.updateBooking(id, rental)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<RentalResponse> update(
+            @PathVariable Long id,
+            @Valid @RequestBody RentalRequest request) {
+        return ResponseEntity.ok(rentalService.update(id, request));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteBooking(@PathVariable Long id) {
-        service.deleteBooking(id);
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        rentalService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 }
-
