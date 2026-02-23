@@ -1,4 +1,4 @@
-package com.lorenzo.rentalmanagement.booking.model;
+package com.lorenzo.rentalmanagement.rental.model;
 
 import com.lorenzo.rentalmanagement.user.domain.entity.User;
 import com.lorenzo.rentalmanagement.property.domain.entity.Property;
@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
     @Entity
-    public class Booking {
+    public class Rental {
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,10 +23,10 @@ import java.time.LocalDate;
         private Double totalPrice;
         private Boolean active;
 
-        public Booking() {
+        public Rental() {
         }
 
-        public Booking(Property property, User user, LocalDate startDate, LocalDate endDate, Double totalPrice, Boolean active) {
+        public Rental(Property property, User user, LocalDate startDate, LocalDate endDate, Double totalPrice, Boolean active) {
             this.property = property;
             this.user = user;
             this.startDate = startDate;

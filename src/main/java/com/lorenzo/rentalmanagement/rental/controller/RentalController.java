@@ -1,7 +1,7 @@
-package com.lorenzo.rentalmanagement.booking.controller;
+package com.lorenzo.rentalmanagement.rental.controller;
 
-import com.lorenzo.rentalmanagement.booking.model.Booking;
-import com.lorenzo.rentalmanagement.booking.service.BookingService;
+import com.lorenzo.rentalmanagement.rental.model.Rental;
+import com.lorenzo.rentalmanagement.rental.service.RentalService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,35 +10,35 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/bookings")
-public class BookingController {
+public class RentalController {
 
-    private final BookingService service;
+    private final RentalService service;
 
-    public BookingController(BookingService service) {
+    public RentalController(RentalService service) {
         this.service = service;
     }
 
     @PostMapping
-    public ResponseEntity<Booking> createBooking(@RequestBody Booking booking) {
-        Booking saved = service.createBooking(booking);
+    public ResponseEntity<Rental> createBooking(@RequestBody Rental rental) {
+        Rental saved = service.createBooking(rental);
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 
     @GetMapping
-    public ResponseEntity<List<Booking>> getAllBookings() {
+    public ResponseEntity<List<Rental>> getAllBookings() {
         return ResponseEntity.ok(service.getAllBookings());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Booking> getBookingById(@PathVariable Long id) {
+    public ResponseEntity<Rental> getBookingById(@PathVariable Long id) {
         return service.getBookingById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Booking> updateBooking(@PathVariable Long id, @RequestBody Booking booking) {
-        return service.updateBooking(id, booking)
+    public ResponseEntity<Rental> updateBooking(@PathVariable Long id, @RequestBody Rental rental) {
+        return service.updateBooking(id, rental)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
