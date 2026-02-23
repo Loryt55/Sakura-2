@@ -20,8 +20,12 @@ public class PropertyMapper {
     }
 
     public static PropertyResponse toResponseDTO(Property property) {
+        String ownerFullName = property.getOwner() != null
+                ? property.getOwner().getFirstName() + " " + property.getOwner().getLastName()
+                : "N/A";
         return new PropertyResponse.Builder()
                 .id(property.getId())
+                .ownerFullName(ownerFullName)
                 .name(property.getName())
                 .address(property.getAddress())
                 .city(property.getCity())

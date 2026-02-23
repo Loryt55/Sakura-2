@@ -6,6 +6,7 @@ import java.time.LocalDate;
 public class PropertyResponse {
 
     private Long id;
+    private String ownerFullName;
     private String name;
     private String address;
     private String city;
@@ -19,6 +20,7 @@ public class PropertyResponse {
 
     public static class Builder {
         private Long id;
+        private String ownerFullName;
         private String name;
         private String address;
         private String city;
@@ -29,6 +31,11 @@ public class PropertyResponse {
 
         public Builder id(Long id) {
             this.id = id;
+            return this;
+        }
+
+        public Builder ownerFullName(String ownerFullName) {
+            this.ownerFullName = ownerFullName;
             return this;
         }
 
@@ -70,6 +77,7 @@ public class PropertyResponse {
         public PropertyResponse build() {
             PropertyResponse response = new PropertyResponse();
             response.id = this.id;
+            response.ownerFullName = this.ownerFullName;
             response.name = this.name;
             response.address = this.address;
             response.city = this.city;
@@ -88,6 +96,8 @@ public class PropertyResponse {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public String getOwnerFullName() { return ownerFullName; }
 
     public String getName() {
         return name;

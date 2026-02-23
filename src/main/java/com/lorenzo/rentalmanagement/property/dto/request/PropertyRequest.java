@@ -8,6 +8,8 @@ import java.math.BigDecimal;
 
 public class PropertyRequest {
 
+    @NotNull(message = "Owner is required")
+    private Long ownerId;
     @NotBlank(message = "Name cannot be blank")
     private String name;
     @NotBlank(message = "Address cannot be blank")
@@ -24,6 +26,14 @@ public class PropertyRequest {
 
     public PropertyRequest() {
         // Required by frameworks like Jackson/Spring for deserialization
+    }
+
+    public Long getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(Long ownerId) {
+        this.ownerId = ownerId;
     }
 
     public String getName() {

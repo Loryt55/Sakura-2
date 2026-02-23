@@ -8,6 +8,8 @@ import com.lorenzo.rentalmanagement.property.exception.ResourceNotFoundException
 import com.lorenzo.rentalmanagement.property.mapper.PropertyMapper;
 import com.lorenzo.rentalmanagement.property.repository.PropertyRepository;
 import com.lorenzo.rentalmanagement.property.service.PropertyService;
+import com.lorenzo.rentalmanagement.user.domain.entity.User;
+import com.lorenzo.rentalmanagement.user.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -17,16 +19,24 @@ import java.util.List;
 public class PropertyServiceImpl implements PropertyService {
 
     private final PropertyRepository propertyRepository;
+    private final UserRepository userRepository;
 
-    public PropertyServiceImpl(PropertyRepository propertyRepository) {
+    public PropertyServiceImpl(PropertyRepository propertyRepository, UserRepository userRepository) {
         this.propertyRepository = propertyRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
     public PropertyResponse create(PropertyRequest propertyRequest) {
+        User owner = userRepository.findById(propertyRequest.getOwnerId())
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        String.format("User with id %d not found", propertyRequest.getOwnerId())));
+
         Property property = PropertyMapper.toEntity(propertyRequest);
         property.setActive(true);
+        property.setOwner(owner);
         property.setCreatedAt(LocalDate.now());
+
         Property savedProperty = propertyRepository.save(property);
         return PropertyMapper.toResponseDTO(savedProperty);
     }
@@ -48,6 +58,11 @@ public class PropertyServiceImpl implements PropertyService {
     public PropertyResponse update(Long id, PropertyRequest propertyRequest) {
         Property propertyExisting = findPropertyOrThrow(id);
 
+        User owner = userRepository.findById(propertyRequest.getOwnerId())
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        String.format("User with id %d not found", propertyRequest.getOwnerId())));
+
+        propertyExisting.setOwner(owner);
         propertyExisting.setName(propertyRequest.getName());
         propertyExisting.setAddress(propertyRequest.getAddress());
         propertyExisting.setCity(propertyRequest.getCity());
