@@ -3,39 +3,43 @@ package com.lorenzo.rentalmanagement.user.service;
 import com.lorenzo.rentalmanagement.property.exception.ResourceNotFoundException;
 import com.lorenzo.rentalmanagement.user.domain.entity.Role;
 import com.lorenzo.rentalmanagement.user.domain.entity.User;
-import com.lorenzo.rentalmanagement.user.dto.response.UserResponse;
 import com.lorenzo.rentalmanagement.user.dto.request.UserRequest;
 import com.lorenzo.rentalmanagement.user.dto.request.UserUpdateRequest;
+import com.lorenzo.rentalmanagement.user.dto.response.UserResponse;
 import com.lorenzo.rentalmanagement.user.mapper.UserMapper;
 import com.lorenzo.rentalmanagement.user.repository.RoleRepository;
 import com.lorenzo.rentalmanagement.user.repository.UserRepository;
+import com.lorenzo.rentalmanagement.user.service.impl.UserService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Service
-public class UserService {
+public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
 
-    public UserService(UserRepository userRepository, RoleRepository roleRepository) {
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
     }
 
-    public List<UserResponse> getAllUsers() {
+    @Override
+    public List<UserResponse> findAll() {
         return userRepository.findAllByActiveTrue()
                 .stream()
                 .map(UserMapper::toResponseDTO)
                 .toList();
     }
 
-    public UserResponse getUserById(Long id) {
+    @Override
+    public UserResponse findById(Long id) {
         return UserMapper.toResponseDTO(findUserOrThrow(id));
     }
 
+    @Override
     public UserResponse createUser(UserRequest request) {
         Role role = findRoleOrThrow(request.getRoleId());
 
@@ -46,6 +50,7 @@ public class UserService {
         return UserMapper.toResponseDTO(userRepository.save(user));
     }
 
+    @Override
     public UserResponse updateUser(Long id, UserUpdateRequest request) {
         User user = findUserOrThrow(id);
         Role role = findRoleOrThrow(request.getRoleId());
@@ -59,6 +64,7 @@ public class UserService {
         return UserMapper.toResponseDTO(userRepository.save(user));
     }
 
+    @Override
     public void deleteById(Long id) {
         User user = findUserOrThrow(id);
         user.setActive(false);

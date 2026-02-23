@@ -3,7 +3,8 @@ package com.lorenzo.rentalmanagement.user.controller;
 import com.lorenzo.rentalmanagement.user.dto.request.UserRequest;
 import com.lorenzo.rentalmanagement.user.dto.request.UserUpdateRequest;
 import com.lorenzo.rentalmanagement.user.dto.response.UserResponse;
-import com.lorenzo.rentalmanagement.user.service.UserService;
+import com.lorenzo.rentalmanagement.user.service.UserServiceImpl;
+import com.lorenzo.rentalmanagement.user.service.impl.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ public class UserController {
 
     private final UserService userService;
 
-    public UserController(UserService userService) {
+    public UserController(UserServiceImpl userService) {
         this.userService = userService;
     }
 
@@ -27,13 +28,13 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<List<UserResponse>> getAllUsers() {
-        return ResponseEntity.ok(userService.getAllUsers());
+    public ResponseEntity<List<UserResponse>> findAll() {
+        return ResponseEntity.ok(userService.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserResponse> getUserById(@PathVariable Long id) {
-        return ResponseEntity.ok(userService.getUserById(id));
+    public ResponseEntity<UserResponse> findById(@PathVariable Long id) {
+        return ResponseEntity.ok(userService.findById(id));
     }
 
     @PutMapping("/{id}")

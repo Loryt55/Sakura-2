@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping("/api/properties")
 public class PropertyController {
 
-    private PropertyService propertyService;
+    private final PropertyService propertyService;
 
     public PropertyController(PropertyService propertyService) {
         this.propertyService = propertyService;
