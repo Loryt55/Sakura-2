@@ -73,7 +73,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserResponse> findAllByRole(String roleName) {
-        return userRepository.findAllByRoleNameAndActiveTrue(roleName)
+        return userRepository.findAllByRole_NameAndActiveTrue(roleName)
                 .stream()
                 .map(UserMapper::toResponseDTO)
                 .toList();
