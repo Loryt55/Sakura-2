@@ -19,7 +19,7 @@ import java.time.LocalDate;
         private Property property;
         @ManyToOne
         @JoinColumn(name = "tenant_id", nullable = false)
-        private User Tenant;
+        private User tenant;
         private LocalDate startDate;
         private LocalDate endDate;
         private BigDecimal totalPrice;
@@ -28,9 +28,9 @@ import java.time.LocalDate;
         public Rental() {
         }
 
-        public Rental(Property property, User Tenant, LocalDate startDate, LocalDate endDate, BigDecimal totalPrice, Boolean active) {
+        public Rental(Property property, User tenant, LocalDate startDate, LocalDate endDate, BigDecimal totalPrice, Boolean active) {
             this.property = property;
-            this.Tenant = Tenant;
+            this.tenant = tenant;
             this.startDate = startDate;
             this.endDate = endDate;
             this.totalPrice = totalPrice;
@@ -50,11 +50,11 @@ import java.time.LocalDate;
         }
 
         public User getTenant() {
-            return Tenant;
+            return tenant;
         }
 
         public void setTenant(User tenant) {
-            this.Tenant = tenant;
+            this.tenant = tenant;
         }
 
         public LocalDate getStartDate() {
