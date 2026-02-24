@@ -14,6 +14,7 @@ import com.lorenzo.rentalmanagement.user.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
@@ -121,6 +122,12 @@ public class RentalServiceImpl implements RentalService {
             BigDecimal pricePerMonth) {
 
         long months = ChronoUnit.MONTHS.between(startDate, endDate);
+
+        LocalDate afterFullMonths = startDate.plusMonths(months);
+        if (afterFullMonths.isBefore(endDate)) {
+            months++;
+        }
+
         return pricePerMonth.multiply(BigDecimal.valueOf(months));
     }
 }
