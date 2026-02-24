@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findAllByActiveTrue();
+    List<User> findAllByRoleNameAndActiveTrue(String roleName);
 }

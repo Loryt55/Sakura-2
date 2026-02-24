@@ -17,4 +17,6 @@ public interface UserService {
     UserResponse updateUser(Long id, UserUpdateRequest request);
 
     void deleteById(Long id);
+
+    List<UserResponse> findAllByRole(String roleName);
 }

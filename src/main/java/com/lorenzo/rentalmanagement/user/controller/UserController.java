@@ -49,4 +49,9 @@ public class UserController {
         userService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/by-role/{roleName}")
+    public ResponseEntity<List<UserResponse>> getByRole(@PathVariable String roleName) {
+        return ResponseEntity.ok(userService.findAllByRole(roleName));
+    }
 }

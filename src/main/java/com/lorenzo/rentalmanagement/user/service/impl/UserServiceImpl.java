@@ -71,6 +71,14 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
+    @Override
+    public List<UserResponse> findAllByRole(String roleName) {
+        return userRepository.findAllByRoleNameAndActiveTrue(roleName)
+                .stream()
+                .map(UserMapper::toResponseDTO)
+                .toList();
+    }
+
     // --- metodi privati di supporto ---
 
     private User findUserOrThrow(Long id) {
