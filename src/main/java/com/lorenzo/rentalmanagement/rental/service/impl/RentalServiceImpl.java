@@ -63,7 +63,7 @@ public class RentalServiceImpl implements RentalService {
 
     @Override
     public List<RentalResponse> findAll() {
-        return rentalRepository.findAll()
+        return rentalRepository.findAllByActiveTrue()
                 .stream()
                 .map(RentalMapper::toResponseDTO)
                 .toList();
