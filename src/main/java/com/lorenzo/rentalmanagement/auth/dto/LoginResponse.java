@@ -7,13 +7,15 @@ public class LoginResponse {
     private String lastName;
     private String email;
     private String roleName;
+    private String token;
 
-    public LoginResponse(Long id, String firstName, String lastName, String email, String roleName) {
+    public LoginResponse(Long id, String firstName, String lastName, String email, String roleName,  String token) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.roleName = roleName;
+        this.token = token;
     }
 
     public Long getId() {
@@ -34,5 +36,9 @@ public class LoginResponse {
 
     public String getRoleName() {
         return roleName;
+    }
+
+    public String getToken() {
+        return token;
     }
 }

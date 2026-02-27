@@ -10,6 +10,7 @@ import com.lorenzo.rentalmanagement.user.mapper.UserMapper;
 import com.lorenzo.rentalmanagement.role.repository.RoleRepository;
 import com.lorenzo.rentalmanagement.user.repository.UserRepository;
 import com.lorenzo.rentalmanagement.user.service.UserService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -20,10 +21,14 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository) {
+    public UserServiceImpl(UserRepository userRepository,
+                           RoleRepository roleRepository,
+                           PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -46,6 +51,7 @@ public class UserServiceImpl implements UserService {
         User user = UserMapper.toEntity(request, role);
         user.setActive(true);
         user.setCreatedAt(LocalDate.now());
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         return UserMapper.toResponseDTO(userRepository.save(user));
     }
@@ -78,8 +84,6 @@ public class UserServiceImpl implements UserService {
                 .map(UserMapper::toResponseDTO)
                 .toList();
     }
-
-    // --- metodi privati di supporto ---
 
     private User findUserOrThrow(Long id) {
         return userRepository.findById(id)
