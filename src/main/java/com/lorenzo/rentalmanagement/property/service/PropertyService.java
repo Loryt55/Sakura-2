@@ -9,7 +9,7 @@ public interface PropertyService {
 
     PropertyResponse create(PropertyRequest propertyRequest);
 
-    List<PropertyResponse> findAll();
+    List<PropertyResponse> findAll(Long userId, String role);
 
     PropertyResponse findById(Long id);
 

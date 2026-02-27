@@ -7,6 +7,7 @@ import com.lorenzo.rentalmanagement.rental.service.impl.RentalServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,7 +29,9 @@ public class RentalController {
 
     @GetMapping
     public ResponseEntity<List<RentalResponse>> getAll() {
-        return ResponseEntity.ok(rentalService.findAll());
+        Long userId = getAuthenticatedUserId();
+        String role = getAuthenticatedRole();
+        return ResponseEntity.ok(rentalService.findAll(userId, role));
     }
 
     @GetMapping("/{id}")
@@ -47,5 +50,21 @@ public class RentalController {
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         rentalService.deleteById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    private Long getAuthenticatedUserId() {
+        return (Long) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal();
+    }
+
+    private String getAuthenticatedRole() {
+        return SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getAuthorities()
+                .iterator()
+                .next()
+                .getAuthority()
+                .replace("ROLE_", "");
     }
 }

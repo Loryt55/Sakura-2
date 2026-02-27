@@ -42,9 +42,17 @@ public class PropertyServiceImpl implements PropertyService {
     }
 
     @Override
-    public List<PropertyResponse> findAll() {
-        return propertyRepository.findAllByActiveTrue()
-                .stream()
+    public List<PropertyResponse> findAll(Long userId, String role) {
+
+        List<Property> properties;
+
+        if (role.equals("OWNER")) {
+            properties = propertyRepository.findAllByOwner_IdAndActiveTrue(userId);
+        } else {
+            properties = propertyRepository.findAllByActiveTrue();
+        }
+
+        return properties.stream()
                 .map(PropertyMapper::toResponseDTO)
                 .toList();
     }

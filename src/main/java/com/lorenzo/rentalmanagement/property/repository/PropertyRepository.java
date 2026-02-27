@@ -9,4 +9,6 @@ import java.util.List;
 @Repository
 public interface PropertyRepository extends JpaRepository<Property, Long> {
     List<Property> findAllByActiveTrue();
+
+    List<Property> findAllByOwner_IdAndActiveTrue(Long ownerId);
 }

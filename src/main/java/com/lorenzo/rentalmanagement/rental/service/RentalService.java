@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface RentalService {
     RentalResponse create(RentalRequest request);
-    List<RentalResponse> findAll();
+    List<RentalResponse> findAll(Long userId, String role);
     RentalResponse findById(Long id);
     RentalResponse update(Long id, RentalRequest request);
     void deleteById(Long id);

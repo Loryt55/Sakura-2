@@ -2,7 +2,7 @@ package com.lorenzo.rentalmanagement.auth.controller;
 
 import com.lorenzo.rentalmanagement.auth.dto.LoginRequest;
 import com.lorenzo.rentalmanagement.auth.dto.LoginResponse;
-import com.lorenzo.rentalmanagement.auth.service.AuthService;
+import com.lorenzo.rentalmanagement.auth.service.impl.AuthServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/auth")
 public class AuthController {
 
-    private final AuthService authService;
+    private final AuthServiceImpl authService;
 
-    public AuthController(AuthService authService) {
+    public AuthController(AuthServiceImpl authService) {
         this.authService = authService;
     }
 

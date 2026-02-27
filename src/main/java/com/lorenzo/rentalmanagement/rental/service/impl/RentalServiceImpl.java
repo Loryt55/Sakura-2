@@ -1,6 +1,7 @@
 package com.lorenzo.rentalmanagement.rental.service.impl;
 
 import com.lorenzo.rentalmanagement.property.domain.entity.Property;
+import com.lorenzo.rentalmanagement.property.exception.ResourceNotFoundException;
 import com.lorenzo.rentalmanagement.property.repository.PropertyRepository;
 import com.lorenzo.rentalmanagement.rental.domain.entity.Rental;
 import com.lorenzo.rentalmanagement.rental.dto.request.RentalRequest;
@@ -8,7 +9,6 @@ import com.lorenzo.rentalmanagement.rental.dto.response.RentalResponse;
 import com.lorenzo.rentalmanagement.rental.mapper.RentalMapper;
 import com.lorenzo.rentalmanagement.rental.repository.RentalRepository;
 import com.lorenzo.rentalmanagement.rental.service.RentalService;
-import com.lorenzo.rentalmanagement.property.exception.ResourceNotFoundException;
 import com.lorenzo.rentalmanagement.user.domain.entity.User;
 import com.lorenzo.rentalmanagement.user.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -62,8 +62,18 @@ public class RentalServiceImpl implements RentalService {
     }
 
     @Override
-    public List<RentalResponse> findAll() {
-        return rentalRepository.findAllByActiveTrue()
+    public List<RentalResponse> findAll(Long userId, String role) {
+
+        List<Rental> rentals;
+
+        if (role.equals("OWNER")) {
+            rentals = rentalRepository.findAllByProperty_Owner_IdAndActiveTrue(userId);
+        } else if (role.equals("TENANT")) {
+            rentals = rentalRepository.findAllByTenant_IdAndActiveTrue(userId);
+        } else {
+            rentals = rentalRepository.findAllByActiveTrue();
+        }
+        return rentals
                 .stream()
                 .map(RentalMapper::toResponseDTO)
                 .toList();
