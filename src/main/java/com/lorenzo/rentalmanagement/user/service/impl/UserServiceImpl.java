@@ -1,6 +1,6 @@
 package com.lorenzo.rentalmanagement.user.service.impl;
 
-import com.lorenzo.rentalmanagement.property.exception.ResourceNotFoundException;
+import com.lorenzo.rentalmanagement.common.exception.ResourceNotFoundException;
 import com.lorenzo.rentalmanagement.role.domain.entity.Role;
 import com.lorenzo.rentalmanagement.user.domain.entity.User;
 import com.lorenzo.rentalmanagement.user.dto.request.UserRequest;

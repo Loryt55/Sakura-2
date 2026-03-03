@@ -4,7 +4,7 @@ import com.lorenzo.rentalmanagement.common.exception.ErrorMessages;
 import com.lorenzo.rentalmanagement.property.domain.entity.Property;
 import com.lorenzo.rentalmanagement.property.dto.request.PropertyRequest;
 import com.lorenzo.rentalmanagement.property.dto.response.PropertyResponse;
-import com.lorenzo.rentalmanagement.property.exception.ResourceNotFoundException;
+import com.lorenzo.rentalmanagement.common.exception.ResourceNotFoundException;
 import com.lorenzo.rentalmanagement.property.mapper.PropertyMapper;
 import com.lorenzo.rentalmanagement.property.repository.PropertyRepository;
 import com.lorenzo.rentalmanagement.property.service.PropertyService;

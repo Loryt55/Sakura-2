@@ -7,6 +7,7 @@ import com.lorenzo.rentalmanagement.rental.service.impl.RentalServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,11 +24,13 @@ public class RentalController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN') or hasRole('OWNER')")
     public ResponseEntity<RentalResponse> create(@Valid @RequestBody RentalRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(rentalService.create(request));
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN') or hasRole('OWNER') or hasRole('TENANT')")
     public ResponseEntity<List<RentalResponse>> getAll() {
         Long userId = getAuthenticatedUserId();
         String role = getAuthenticatedRole();
@@ -35,11 +38,13 @@ public class RentalController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('OWNER') or hasRole('TENANT')")
     public ResponseEntity<RentalResponse> getById(@PathVariable Long id) {
         return ResponseEntity.ok(rentalService.findById(id));
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('OWNER')")
     public ResponseEntity<RentalResponse> update(
             @PathVariable Long id,
             @Valid @RequestBody RentalRequest request) {
@@ -47,6 +52,7 @@ public class RentalController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('OWNER')")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         rentalService.deleteById(id);
         return ResponseEntity.noContent().build();

@@ -1,7 +1,7 @@
 package com.lorenzo.rentalmanagement.rental.service.impl;
 
 import com.lorenzo.rentalmanagement.property.domain.entity.Property;
-import com.lorenzo.rentalmanagement.property.exception.ResourceNotFoundException;
+import com.lorenzo.rentalmanagement.common.exception.ResourceNotFoundException;
 import com.lorenzo.rentalmanagement.property.repository.PropertyRepository;
 import com.lorenzo.rentalmanagement.rental.domain.entity.Rental;
 import com.lorenzo.rentalmanagement.rental.dto.request.RentalRequest;
@@ -14,6 +14,7 @@ import com.lorenzo.rentalmanagement.user.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -118,8 +119,6 @@ public class RentalServiceImpl implements RentalService {
         rentalRepository.save(rental);
     }
 
-    // --- metodi privati ---
-
     private Rental findRentalOrThrow(Long id) {
         return rentalRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
@@ -127,17 +126,19 @@ public class RentalServiceImpl implements RentalService {
     }
 
     private BigDecimal calculateTotalPrice(
-            java.time.LocalDate startDate,
-            java.time.LocalDate endDate,
+            LocalDate startDate,
+            LocalDate endDate,
             BigDecimal pricePerMonth) {
 
-        long months = ChronoUnit.MONTHS.between(startDate, endDate);
+        long days = ChronoUnit.DAYS.between(startDate, endDate);
 
-        LocalDate afterFullMonths = startDate.plusMonths(months);
-        if (afterFullMonths.isBefore(endDate)) {
-            months++;
+        if (days <= 0) {
+            throw new IllegalArgumentException("End date must be after start date");
         }
 
-        return pricePerMonth.multiply(BigDecimal.valueOf(months));
+        BigDecimal dailyRate = pricePerMonth
+                .divide(BigDecimal.valueOf(30), 2, RoundingMode.HALF_UP);
+
+        return dailyRate.multiply(BigDecimal.valueOf(days));
     }
 }
