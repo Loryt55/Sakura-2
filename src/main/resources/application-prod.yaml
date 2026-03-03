@@ -5,10 +5,6 @@ spring:
     password: ${POSTGRES_PASSWORD:admin}
   jpa:
     hibernate:
-      ddl-auto: update
-    show-sql: true
+      ddl-auto: validate
+    show-sql: false
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-  sql:
-    init:
-      mode: always
-      platform: postgres
