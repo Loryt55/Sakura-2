@@ -1,4 +1,4 @@
-package com.lorenzo.rentalmanagement.property.exception;
+package com.lorenzo.rentalmanagement.common.exception;
 
 import java.time.LocalDateTime;
 

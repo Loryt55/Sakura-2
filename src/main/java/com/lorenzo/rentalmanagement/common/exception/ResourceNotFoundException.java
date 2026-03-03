@@ -1,4 +1,4 @@
-package com.lorenzo.rentalmanagement.property.exception;
+package com.lorenzo.rentalmanagement.common.exception;
 
 
 public class ResourceNotFoundException extends RuntimeException {
