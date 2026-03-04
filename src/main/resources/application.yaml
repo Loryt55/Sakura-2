@@ -15,6 +15,7 @@ spring:
     init:
       mode: always
       platform: postgres
-
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:4200}
 jwt:
   secret: ${JWT_SECRET:riEeu&QRh)vM-a;I=^//bfK$(%f^e]J$m4Jomeb2BM[}
