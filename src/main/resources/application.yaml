@@ -13,3 +13,5 @@ spring:
     init:
       mode: always
       platform: postgres
+jwt:
+  secret: ${JWT_SECRET:riEeu&QRh)vM-a;I=^//bfK$(%f^e]J$m4Jomeb2BM[}

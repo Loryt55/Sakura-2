@@ -3,6 +3,7 @@ package com.lorenzo.rentalmanagement.security;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
@@ -11,12 +12,13 @@ import java.util.Date;
 @Component
 public class JwtUtil {
 
-    //TODO: mettere la secret in una variabile di ambiente
-    private static final String SECRET = "riEeu&QRh)vM-a;I=^//bfK$(%f^e]J$m4Jomeb2BM[";
     private static final long EXPIRATION_MS = 1000 * 60 * 60 * 24;
 
+    @Value("${jwt.secret}")
+    private String secret;
+
     private SecretKey getSigningKey() {
-        return Keys.hmacShaKeyFor(SECRET.getBytes());
+        return Keys.hmacShaKeyFor(secret.getBytes());
     }
 
     public String generateToken(Long userId, String roleName) {
