@@ -1,20 +1,20 @@
-  spring:
-    datasource:
-      url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${POSTGRES_DB:rentaldb}
-      username: ${POSTGRES_USER:admin}
-      password: ${POSTGRES_PASSWORD:admin}
-    autoconfigure:
-      exclude: org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration
-    jpa:
-      hibernate:
-        ddl-auto: update
-      show-sql: true
-      defer-datasource-initialization: true
-      open-in-view: false
-    sql:
-      init:
-        mode: always
-        platform: postgres
+spring:
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${POSTGRES_DB:rentaldb}
+    username: ${POSTGRES_USER:admin}
+    password: ${POSTGRES_PASSWORD:admin}
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    defer-datasource-initialization: true
+    open-in-view: false
+  sql:
+    init:
+      mode: always
+      platform: postgres
 
-  jwt:
-    secret: ${JWT_SECRET:riEeu&QRh)vM-a;I=^//bfK$(%f^e]J$m4Jomeb2BM[}
+jwt:
+  secret: ${JWT_SECRET:riEeu&QRh)vM-a;I=^//bfK$(%f^e]J$m4Jomeb2BM[}
