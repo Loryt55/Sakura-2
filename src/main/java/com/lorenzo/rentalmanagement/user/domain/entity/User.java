@@ -6,7 +6,13 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "app_user")
+@Table(
+        name = "app_user",
+        uniqueConstraints = @UniqueConstraint(
+                name = "unique_email",
+                columnNames = "email"
+        )
+)
 public class User {
 
     @Id
@@ -16,7 +22,7 @@ public class User {
     private String firstName;
     private String lastName;
     private String phoneNumber;
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String email;
     private String password;
     private LocalDate createdAt;
