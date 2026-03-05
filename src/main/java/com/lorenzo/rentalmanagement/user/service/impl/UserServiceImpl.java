@@ -2,16 +2,18 @@ package com.lorenzo.rentalmanagement.user.service.impl;
 
 import com.lorenzo.rentalmanagement.common.exception.ResourceNotFoundException;
 import com.lorenzo.rentalmanagement.role.domain.entity.Role;
+import com.lorenzo.rentalmanagement.role.repository.RoleRepository;
 import com.lorenzo.rentalmanagement.user.domain.entity.User;
 import com.lorenzo.rentalmanagement.user.dto.request.UserRequest;
 import com.lorenzo.rentalmanagement.user.dto.request.UserUpdateRequest;
 import com.lorenzo.rentalmanagement.user.dto.response.UserResponse;
 import com.lorenzo.rentalmanagement.user.mapper.UserMapper;
-import com.lorenzo.rentalmanagement.role.repository.RoleRepository;
 import com.lorenzo.rentalmanagement.user.repository.UserRepository;
 import com.lorenzo.rentalmanagement.user.service.UserService;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -46,6 +48,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponse createUser(UserRequest request) {
+
+        if (userRepository.existsByEmail(request.getEmail())) {
+            throw new ResponseStatusException(
+                    HttpStatus.CONFLICT,
+                    "Email already in use: " + request.getEmail()
+            );
+        }
+
         Role role = findRoleOrThrow(request.getRoleId());
 
         User user = UserMapper.toEntity(request, role);

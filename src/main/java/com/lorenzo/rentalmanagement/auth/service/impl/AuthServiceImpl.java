@@ -47,7 +47,5 @@ public class AuthServiceImpl implements AuthService {
                 token
         );
 
-        //TODO: non gestito il caso se sono presenti più utenti con la stessa email
-        //TODO: fixare il comportamente che al premere velocemente e ripetutamente il save nel front si salvi piu volte la stessa entita
     }
 }
